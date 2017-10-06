@@ -1,18 +1,24 @@
 import tensorflow as tf
 import numpy as np
+from resnet import *
 from tensorflow.examples.tutorials.mnist import input_data
+
+def inference(x):
+
+    #TODO BUILD THE RESNET HERE
+
+
+
+
+    #ENDTODO
+
+    return logits
+
+def loss(logits, labels):
+    cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels = labels, logits = logits)
+    return tf.reduce_mean(cross_entropy)
+
 mnist = input_data.read_data_sets("MNIST_data", one_hot = True)
-
-def op(x, y, is_training):
-    return tf.cond(is_training,
-                   lambda: op_train_time(x,y),
-                   lambda: op_test_time(x,y))
-
-def op_train_time(x, y):
-    return tf.mul(x, y)
-
-def op_test_time(x, y):
-    return tf.mul(x, tf.mul(tf.constant(100.0), y))
 
 is_training = tf.placeholder(tf.bool)
 num1 = tf.placeholder(tf.float32)
