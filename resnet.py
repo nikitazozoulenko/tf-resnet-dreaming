@@ -25,7 +25,7 @@ def bn_wrapper(x, is_training):
 
 def bn_train_time(x, beta, gamma, moving_mean, moving_variance):
     mean, variance = tf.nn.moments(x, axes = [0,1,2])
-    ALPHA = 0.9
+    ALPHA = 0.95
     op_moving_mean = tf.assign(moving_mean,
                                moving_mean * ALPHA + mean * (1-ALPHA))
     op_moving_variance = tf.assign(moving_variance,
@@ -57,8 +57,8 @@ def residual_block(x, C, is_training):
     return tf.nn.relu(res)
 
 def residual_block_reduce_size(x, C, is_training):
-    D = x.get_shape().as_list()[3]
-    conv1 = conv_wrapper(x, shape = [3,3,D,C], strides = [1, 2, 2, 1], padding = "VALID")
+    last_C = x.get_shape().as_list()[3]
+    conv1 = conv_wrapper(x, shape = [3,3,last_C,C], strides = [1, 2, 2, 1], padding = "VALID")
     bn1 = bn_wrapper(conv1, is_training)
     relu1 = tf.nn.relu(bn1)
     conv2 = conv_wrapper(relu1, shape = [3,3,C,C], strides = [1, 1, 1, 1], padding = "SAME")
