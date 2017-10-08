@@ -37,7 +37,7 @@ def bn_wrapper(x, is_training):
 
 def bn_train_time(x, beta, gamma, moving_mean, moving_variance):
     mean, variance = tf.nn.moments(x, axes = [0,1,2])
-    ALPHA = 0.95
+    ALPHA = 0.90
     op_moving_mean = tf.assign(moving_mean,
                                moving_mean * ALPHA + mean * (1-ALPHA))
     op_moving_variance = tf.assign(moving_variance,
