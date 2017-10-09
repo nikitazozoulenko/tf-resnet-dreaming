@@ -28,6 +28,9 @@ def loss(logits, labels):
     return tf.reduce_mean(cross_entropy)
 
 mnist = input_data.read_data_sets("MNIST_data", one_hot = True)
+batch = mnist.train.next_batch(2)
+print(batch[1].shape)
+assert False == True
 
 is_training = tf.placeholder(tf.bool)
 x = tf.placeholder(tf.float32, shape = [None, 28*28*1])
