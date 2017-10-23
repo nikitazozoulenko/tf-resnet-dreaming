@@ -10,6 +10,8 @@ def conv_wrapper(x, shape, strides, padding):
                              [shape[3]],
                              initializer = tf.constant_initializer(0.1))
 
+    #tf.histogram_summary("weights_summary", weights)
+
     conv = tf.nn.conv2d(x,
                         weights,
                         strides = strides,
